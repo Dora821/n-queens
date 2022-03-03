@@ -22,23 +22,33 @@
       return _(_.range(this.get('n'))).map(function(rowIndex) {
         return this.get(rowIndex);
       }, this);
+      // O(n) time complexity
+      // O(n) space complexity
     },
 
     togglePiece: function(rowIndex, colIndex) {
       this.get(rowIndex)[colIndex] = + !this.get(rowIndex)[colIndex];
       this.trigger('change');
+      // O(1) time complexity
+      // O(1) space complexity
     },
 
     _getFirstRowColumnIndexForMajorDiagonalOn: function(rowIndex, colIndex) {
       return colIndex - rowIndex;
+      // O(1) time complexity
+      // O(1) space complexity
     },
 
     _getFirstRowColumnIndexForMinorDiagonalOn: function(rowIndex, colIndex) {
       return colIndex + rowIndex;
+      // O(1) time complexity
+      // O(1) space complexity
     },
 
     hasAnyRooksConflicts: function() {
       return this.hasAnyRowConflicts() || this.hasAnyColConflicts();
+      // O(n^2) time complexity
+      // O(n) space complexity
     },
 
     hasAnyQueenConflictsOn: function(rowIndex, colIndex) {
@@ -48,10 +58,14 @@
         this.hasMajorDiagonalConflictAt(this._getFirstRowColumnIndexForMajorDiagonalOn(rowIndex, colIndex)) ||
         this.hasMinorDiagonalConflictAt(this._getFirstRowColumnIndexForMinorDiagonalOn(rowIndex, colIndex))
       );
+      // O(n) time complexity
+      // O(n) space complexity
     },
 
     hasAnyQueensConflicts: function() {
       return this.hasAnyRooksConflicts() || this.hasAnyMajorDiagonalConflicts() || this.hasAnyMinorDiagonalConflicts();
+      // O(n^2) time complexity
+      // O(n) space complexity
     },
 
     _isInBounds: function(rowIndex, colIndex) {
@@ -59,6 +73,8 @@
         0 <= rowIndex && rowIndex < this.get('n') &&
         0 <= colIndex && colIndex < this.get('n')
       );
+      // O(1) time complexity
+      // O(1) space complexity
     },
 
 
@@ -84,6 +100,8 @@
       return this.get(rowIndex).reduce((function(accumulator, element) {
         return accumulator + element;
       }), 0) > 1;
+      // O(n) time complexity
+      // O(1) space complexity
     },
 
     // test if any rows on this board contain conflicts
@@ -92,6 +110,8 @@
       //   return this.hashasRowConflictAt(item);
       // });
       return _.range(0, this.get('n')).some(curRowIndex => this.hasRowConflictAt(curRowIndex));
+      // O(n^2) time complexity
+      // O(n) space complexity
     },
 
 
@@ -109,12 +129,15 @@
         total += this.get(row)[colIndex];
       }
       return total > 1;
+      // O(n) time complexity
+      // O(n) space complexity
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
       return _.range(0, this.get('n')).some(curColIndex => this.hasColConflictAt(curColIndex));
-    // fixme
+      // O(n^2) time complexity
+      // O(n) space complexity
     },
 
 
@@ -134,6 +157,8 @@
         }
       }
       return total > 1;
+      // O(n) time complexity
+      // O(n) space complexity
     },
 
 
@@ -142,6 +167,8 @@
       let n = this.get('n');
       // return false; // fixme
       return _.range(2 - n, n - 1).some(startingCol => this.hasMajorDiagonalConflictAt(startingCol));
+      // O(n^2) time complexity
+      // O(n) space complexity
     },
 
 
@@ -158,7 +185,9 @@
           total += this.get(curRow)[minorDiagonalColumnIndexAtFirstRow - curRow];
         }
       }
-      return total > 1; // fixme
+      return total > 1;
+      // O(n) time complexity
+      // O(n) space complexity
     },
 
     // test if any minor diagonals on this board contain conflicts
@@ -166,6 +195,8 @@
       let n = this.get('n');
       // return false; // fixme
       return _.range(1, 2 * n - 2).some(startingCol => this.hasMinorDiagonalConflictAt(startingCol));
+      // O(n^2) time complexity
+      // O(n) space complexity
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
